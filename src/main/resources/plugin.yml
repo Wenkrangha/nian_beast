@@ -1,0 +1,4 @@
+name: nian_beast
+version: '${project.version}'
+main: com.wenkrang.nian_beast.Nian_beast
+api-version: '1.20'
