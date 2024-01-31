@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageByBlockEvent;
 public class EntityDamageByBlock implements Listener {
     @EventHandler
     public static void OnEntityDamageByBlockEvent (EntityDamageByBlockEvent event) {
-        if (event.getEntity().getScoreboardTags().contains("nian_beastone")) {
+        if (event.getEntity().getScoreboardTags().contains("nian_beastone") || event.getEntity().getScoreboardTags().contains("nian_beasttwo")) {
             event.setDamage(1);
         }
     }

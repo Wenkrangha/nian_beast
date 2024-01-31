@@ -16,7 +16,46 @@ import java.util.Random;
 
 import static com.wenkrang.nian_beast.Nian_beast.isShutdown;
 
+
+
+
 public class PlayerJoin implements Listener {
+    /**
+     * 自动设置实体的目标
+     *
+     * @param range 仇视范围
+     * @param mobtaget 要设置目标的实体的标签
+     * @param player 检查并运行方法的对象
+     */
+    public static void AutoSetTarget(int range, String mobtaget, Player player) {
+        // 获取玩家附近的实体列表
+        List<Entity> nearbyEntities = player.getNearbyEntities(range, range, range);
+
+        // 遍历附近的实体列表
+        for (int i = 0; i < nearbyEntities.size(); i++) {
+            // 如果附近的实体的Scoreboard标签中包含mobtaget标签
+            if (nearbyEntities.get(i).getScoreboardTags().contains(mobtaget)) {
+                // 获取附近的实体的mob对象
+                Mob mob = (PolarBear) nearbyEntities.get(i);
+                // 获取mob对象附近的实体列表
+                List<Entity> nearbyEntities1 = mob.getNearbyEntities(range, range, range);
+                // 遍历mob对象附近的实体列表
+                for (int j = 0; j < nearbyEntities1.size(); j++) {
+                    Entity entity = nearbyEntities1.get(j);
+                    // 如果实体的类型是Player
+                    if (entity.getType().equals(EntityType.PLAYER)) {
+                        // 如果实体的游戏模式是SURVIVAL
+                        if (((Player) entity).getGameMode().equals(GameMode.SURVIVAL)) {
+                            // 设置PolarBear对象的目标为实体
+                            mob.setTarget((LivingEntity) entity);
+                            // 跳出循环
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * 查找上方有空气方块的位置
@@ -62,38 +101,13 @@ public class PlayerJoin implements Listener {
                 // 如果玩家在线
                 if (event.getPlayer().isOnline()) {
                     // 如果玩家所在的服务器是"world"世界
-                    if (event.getPlayer().getWorld().getName().equalsIgnoreCase("world")) {
+                    if (event.getPlayer().getWorld().getName().equalsIgnoreCase("world") || event.getPlayer().getWorld().getName().equalsIgnoreCase("end")) {
                         // 创建一个BukkitRunnable任务
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                // 获取玩家附近的实体列表
-                                List<Entity> nearbyEntities = event.getPlayer().getNearbyEntities(25, 25, 25);
-
-                                // 遍历附近的实体列表
-                                for (int i = 0; i < nearbyEntities.size(); i++) {
-                                    // 如果附近的实体的Scoreboard标签中包含"nian_beastone"
-                                    if (nearbyEntities.get(i).getScoreboardTags().contains("nian_beastone")) {
-                                        // 获取附近的实体的PolarBear对象
-                                        PolarBear polarBear = (PolarBear) nearbyEntities.get(i);
-                                        // 获取PolarBear对象附近的实体列表
-                                        List<Entity> nearbyEntities1 = polarBear.getNearbyEntities(25, 25, 25);
-                                        // 遍历PolarBear对象附近的实体列表
-                                        for (int j = 0; j < nearbyEntities1.size(); j++) {
-                                            Entity entity = nearbyEntities1.get(j);
-                                            // 如果实体的类型是Player
-                                            if (entity.getType().equals(EntityType.PLAYER)) {
-                                                // 如果实体的游戏模式是SURVIVAL
-                                                if (((Player) entity).getGameMode().equals(GameMode.SURVIVAL)) {
-                                                    // 设置PolarBear对象的目标为实体
-                                                    polarBear.setTarget((LivingEntity) entity);
-                                                    // 跳出循环
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                AutoSetTarget(25, "nian_beastone", event.getPlayer());
+                                AutoSetTarget(50, "nian_beasttwo", event.getPlayer());
                             }
                         }.runTaskLater(Nian_beast.getPlugin(Nian_beast.class), 0);
                     }

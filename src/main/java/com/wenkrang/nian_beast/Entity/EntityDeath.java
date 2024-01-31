@@ -49,5 +49,29 @@ public class EntityDeath implements Listener {
                 event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
             }
         }
+        // 检查实体的得分板标签是否包含"nian_beasttwo"
+        if (event.getEntity().getScoreboardTags().contains("nian_beasttwo")) {
+            Random random = new Random();
+            if (random.nextInt(100) < 5) {
+                ItemStack itemStack = new ItemStack(Material.DIAMOND);
+                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
+            }
+            if (random.nextInt(100) < 5) {
+                ItemStack itemStack = new ItemStack(Material.GOLD_BLOCK);
+                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
+            }
+            if (random.nextInt(100) < 50) {
+                ItemStack itemStack = new ItemStack(Material.DIAMOND, 10 + random.nextInt(8));
+                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
+            }
+            if (random.nextInt(100) < 1) {
+                ItemStack itemStack = new ItemStack(Material.ELYTRA);
+                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
+            }
+            if (random.nextInt(100) < 10) {
+                ItemStack itemStack = new ItemStack(Material.DRAGON_BREATH);
+                event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
+            }
+        }
     }
 }

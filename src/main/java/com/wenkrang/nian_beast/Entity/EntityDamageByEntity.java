@@ -14,14 +14,21 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class EntityDamageByEntity implements Listener {
+    /**
+     * 当实体受到实体伤害时触发的事件
+     *
+     * @param event 实体受到实体伤害的事件
+     */
     @EventHandler
-    public static void OnEntityDamageByEntityEvent (EntityDamageByEntityEvent event) {
-        if (event.getEntity().getScoreboardTags().contains("nian_beastone")) {
+    public static void OnEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (event.getEntity().getScoreboardTags().contains("nian_beasttone") || event.getEntity().getScoreboardTags().contains("nian_beasttwo")) {
             if (event.getDamager() instanceof Player) {
                 Random random = new Random();
                 Player player = (Player) event.getDamager();
-                if (random.nextInt(100) < 10) {
-                    player.sendMessage(SpigotConsoleColors.DARK_RED + "Nian_Beast " + SpigotConsoleColors.RESET + SpigotConsoleColors.WHITE + ">> " + SpigotConsoleColors.RESET + SpigotConsoleColors.DARK_YELLOW + "普通年兽 : 纳米上皮组织，小子! ( 你只能使用烟花来攻击 )");
+                if (event.getEntity().getScoreboardTags().contains("nian_beasttone")) {
+                    if (random.nextInt(100) < 10) {
+                        player.sendMessage(SpigotConsoleColors.DARK_RED + "Nian_Beast " + SpigotConsoleColors.RESET + SpigotConsoleColors.WHITE + ">> " + SpigotConsoleColors.RESET + SpigotConsoleColors.DARK_YELLOW + "普通年兽 : 纳米上皮组织，小子! ( 你只能使用烟花来攻击 )");
+                    }
                 }
             }
 
@@ -42,12 +49,12 @@ public class EntityDamageByEntity implements Listener {
                 //firework.
                 //在Minecraft中，烟花（Firework Rocket）并没有明确的“阶数”概念。然而，可以通过检查烟花火箭的FireworkMeta来获取其详细信息，包括爆炸效果、颜色和飞行时间等。
 
-            }else {
+            } else {
                 event.setDamage(1);
             }
         }
         if (event.getEntity() instanceof Player) {
-            if (event.getDamager().getScoreboardTags().contains("nian_beastone")){
+            if (event.getDamager().getScoreboardTags().contains("nian_beastone") || event.getDamager().getScoreboardTags().contains("nian_beasttwo")) {
                 Player player = (Player) event.getEntity();
                 Random random = new Random();
 
@@ -68,8 +75,10 @@ public class EntityDamageByEntity implements Listener {
                     ((Player) event.getEntity()).addPotionEffect(potionEffect);
                 }
             }
+            if (event.getDamager().getScoreboardTags().contains("nian_beasttwo")) {
+                event.getEntity().setFireTicks(160);
+            }
         }
-
     }
 
 }
