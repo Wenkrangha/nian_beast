@@ -1,16 +1,18 @@
 package com.wenkrang.nian_beast.Entity;
 
 import com.wenkrang.nian_beast.Nian_beast;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.BlockIterator;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -23,11 +25,14 @@ public class PlayerJoin implements Listener {
     /**
      * 自动设置实体的目标
      *
-     * @param range 仇视范围
+     * @param range    仇视范围
      * @param mobtaget 要设置目标的实体的标签
-     * @param player 检查并运行方法的对象
-     */
-    public static void AutoSetTarget(int range, String mobtaget, Player player) {
+     * @param player   检查并运行方法的对象
+     * @return 是否锁定目标
+     */                                         
+    public static boolean AutoSetTarget(int range, String mobtaget, Player player) {
+        boolean IsFind = false;
+
         // 获取玩家附近的实体列表
         List<Entity> nearbyEntities = player.getNearbyEntities(range, range, range);
 
@@ -36,7 +41,7 @@ public class PlayerJoin implements Listener {
             // 如果附近的实体的Scoreboard标签中包含mobtaget标签
             if (nearbyEntities.get(i).getScoreboardTags().contains(mobtaget)) {
                 // 获取附近的实体的mob对象
-                Mob mob = (PolarBear) nearbyEntities.get(i);
+                Mob mob = (Mob) nearbyEntities.get(i);
                 // 获取mob对象附近的实体列表
                 List<Entity> nearbyEntities1 = mob.getNearbyEntities(range, range, range);
                 // 遍历mob对象附近的实体列表
@@ -48,6 +53,7 @@ public class PlayerJoin implements Listener {
                         if (((Player) entity).getGameMode().equals(GameMode.SURVIVAL)) {
                             // 设置PolarBear对象的目标为实体
                             mob.setTarget((LivingEntity) entity);
+                            IsFind = true;
                             // 跳出循环
                             break;
                         }
@@ -55,6 +61,7 @@ public class PlayerJoin implements Listener {
                 }
             }
         }
+        return IsFind;
     }
 
     /**
@@ -67,7 +74,7 @@ public class PlayerJoin implements Listener {
         Location result = null;
         Location location = location1.clone();
         ArrayList<Integer> list = new ArrayList<>();
-        for (int i = location.getBlockY() + 1; i < 319; i++) {
+        for (int i = location.getBlockY() + 1; i < location.getBlockY() + 45; i++) {
             Location x = location.clone();
             x.setY(i);
             if (x.getBlock().getBlockData().getMaterial().equals(Material.AIR)) {
@@ -101,7 +108,7 @@ public class PlayerJoin implements Listener {
                 // 如果玩家在线
                 if (event.getPlayer().isOnline()) {
                     // 如果玩家所在的服务器是"world"世界
-                    if (event.getPlayer().getWorld().getName().equalsIgnoreCase("world") || event.getPlayer().getWorld().getName().equalsIgnoreCase("end")) {
+                    if (event.getPlayer().getWorld().getName().equalsIgnoreCase("world") || event.getPlayer().getWorld().getName().equalsIgnoreCase("world_the_end")) {
                         // 创建一个BukkitRunnable任务
                         new BukkitRunnable() {
                             @Override
@@ -117,50 +124,6 @@ public class PlayerJoin implements Listener {
                 }
             }
         }.runTaskTimerAsynchronously(Nian_beast.getPlugin(Nian_beast.class), 0, 40);
-        new BukkitRunnable() {
-            /**
-             * 重写的run方法
-             */
-            @Override
-            public void run() {
-                // 如果已经关闭，则取消任务
-                if (isShutdown) {
-                    cancel();
-                }
-                // 如果玩家在线
-                if (event.getPlayer().isOnline()) {
-                    // 如果玩家所在的维度是"end"
-                    if (event.getPlayer().getWorld().getName().equalsIgnoreCase("end")) {
-                        // 如果玩家眼睛所处的方块高度小于320
-                        if (event.getPlayer().getEyeLocation().getBlockY() < 320) {
-                            Random random = new Random();
-                            // 随机数小于30时
-                            if (random.nextInt(100) < 30) {
-                                boolean hasblock = false;
-                                // 遍历玩家眼睛所处的方块以上1到319的方块
-                                for (int i = event.getPlayer().getEyeLocation().getBlockY() + 1; i < 319; i++) {
-                                    Location clone = event.getPlayer().getEyeLocation().clone();
-                                    clone.setY(i);
-                                    // 如果方块不是空气
-                                    if (!clone.getBlock().getBlockData().getMaterial().equals(Material.AIR)) {
-                                        hasblock = true;
-                                    }
-                                }
-                                // 如果玩家眼睛所处的方块以上没有方块
-                                if (!hasblock) {
-                                    // 在玩家眼睛所处的方块周围寻找空气方块
-                                    for (int i = 0; i < 3; i++) {
-                                        entity.getEntitytwo(findAirBlock(event.getPlayer().getEyeLocation()));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    // 如果玩家不在线，取消任务
-                    cancel();
-                }
-            }
-        }.runTaskTimerAsynchronously(Nian_beast.getPlugin(Nian_beast.class), 0, 24000);
+
     }
 }

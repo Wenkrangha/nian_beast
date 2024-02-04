@@ -19,7 +19,15 @@ public class Spawner implements Listener {
                 if (event.getEntity().getType().equals(EntityType.SPIDER)) {
 
                     Random random = new Random();
-                    if (random.nextInt(100) <= 30) {
+                    if (random.nextInt(100) <= 10) {
+                        entity.getEntityone(event.getLocation());
+                        event.setCancelled(true);
+                    }
+                }
+                if (event.getEntity().getType().equals(EntityType.SKELETON)) {
+
+                    Random random = new Random();
+                    if (random.nextInt(100) <= 5) {
                         entity.getEntityone(event.getLocation());
                         event.setCancelled(true);
                     }
