@@ -1,6 +1,8 @@
 package com.wenkrang.nian_beast.command;
 
 import com.wenkrang.nian_beast.Entity.entity;
+import com.wenkrang.nian_beast.Entity.raid.RaidEffectShow;
+import com.wenkrang.nian_beast.Nian_beast;
 import com.wenkrang.nian_beast.lib.SpigotConsoleColors;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -112,23 +114,15 @@ public class nb implements CommandExecutor {
                 }
 
             }
-/*
+
             if (strings[0].equalsIgnoreCase("test")) {
                 Player player = (Player) commandSender;
-                List<Entity> nearbyEntities = player.getNearbyEntities(10, 10, 10);
-                Location targetLocation = null;
-                for (Entity entity : nearbyEntities) {
-                    if (entity.getScoreboardTags().contains("nian_beastone")) {
-                        targetLocation = entity.getLocation();
-                    }
-                }
-                if (targetLocation != null) {
-                    Location location = getLocation(player.getLocation(), targetLocation);
-                    player.teleport(location);
-                }
+                Nian_beast.RaidEffect.add(player.getPlayerProfile().getUniqueId().toString());
+                RaidEffectShow.showeffect(player);
+                player.sendMessage(Nian_beast.RaidEffect.toString());
 
             }
-*/
+
         }
 
 

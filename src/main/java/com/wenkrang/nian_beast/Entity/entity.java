@@ -62,7 +62,7 @@ public class entity {
                 PotionEffect GlowingEffect = new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 1, true, false);
                 GlowingEffect.apply(polarBear);
             }
-        }.runTaskLater(Nian_beast.getPlugin(Nian_beast.class), 35);
+        }.runTaskLater(Nian_beast.getPlugin(Nian_beast.class), 30);
     }
     public static Phantom getEntitytwo(Location location) {
         Phantom phantom = (Phantom) location.getWorld().spawnEntity(location, EntityType.PHANTOM);

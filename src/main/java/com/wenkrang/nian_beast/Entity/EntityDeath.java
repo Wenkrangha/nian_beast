@@ -1,5 +1,6 @@
 package com.wenkrang.nian_beast.Entity;
 
+import com.wenkrang.nian_beast.Entity.raid.RaidEffectShow;
 import com.wenkrang.nian_beast.Nian_beast;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -110,10 +111,12 @@ public class EntityDeath implements Listener {
                         event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
                     }
                     //年兽袭击效果
-                    if (random.nextInt(10) < 100) {
-                        if (event.getEntity().getKiller() == null) {
+                    if (true) {
+                        if (event.getEntity().getKiller() != null) {
                             if (!RaidEffect.contains(event.getEntity().getKiller())) {
-
+                                RaidEffect.add(event.getEntity().getKiller().getPlayerProfile().getUniqueId().toString());
+                                RaidEffectShow.showeffect(event.getEntity().getKiller());
+                                event.getEntity().getKiller().sendMessage("Killed");
                             }
                         }
                     }
