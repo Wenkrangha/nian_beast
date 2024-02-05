@@ -11,10 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static com.wenkrang.nian_beast.Nian_beast.isShutdown;
 
@@ -73,6 +70,9 @@ public class PlayerJoin implements Listener {
     public static Location findAirBlock(Location location1) {
         Location result = null;
         Location location = location1.clone();
+        if (location.getBlockY() < 0) {
+            location.setY(Objects.requireNonNull(location.getWorld()).getSeaLevel());
+        }
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = location.getBlockY() + 1; i < location.getBlockY() + 45; i++) {
             Location x = location.clone();
@@ -115,6 +115,7 @@ public class PlayerJoin implements Listener {
                             public void run() {
                                 AutoSetTarget(25, "nian_beastone", event.getPlayer());
                                 AutoSetTarget(50, "nian_beasttwo", event.getPlayer());
+
                             }
                         }.runTaskLater(Nian_beast.getPlugin(Nian_beast.class), 0);
                     }

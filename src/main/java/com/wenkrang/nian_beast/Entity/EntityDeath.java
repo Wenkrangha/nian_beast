@@ -5,6 +5,8 @@ import com.wenkrang.nian_beast.Nian_beast;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.Raid;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +24,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Random;
 
 import static com.wenkrang.nian_beast.Nian_beast.RaidEffect;
@@ -113,10 +116,12 @@ public class EntityDeath implements Listener {
                     //年兽袭击效果
                     if (true) {
                         if (event.getEntity().getKiller() != null) {
-                            if (!RaidEffect.contains(event.getEntity().getKiller())) {
-                                RaidEffect.add(event.getEntity().getKiller().getPlayerProfile().getUniqueId().toString());
-                                RaidEffectShow.showeffect(event.getEntity().getKiller());
-                                event.getEntity().getKiller().sendMessage("Killed");
+                            if (!RaidEffect.contains(Objects.requireNonNull(event.getEntity().getKiller().getPlayerProfile().getUniqueId()).toString())) {
+                                try {
+                                    RaidEffectShow.AddEffect(event.getEntity().getKiller());
+                                } catch (IOException | InvalidConfigurationException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
                         }
                     }

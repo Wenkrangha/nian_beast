@@ -2,6 +2,7 @@ package com.wenkrang.nian_beast.command;
 
 import com.wenkrang.nian_beast.Entity.entity;
 import com.wenkrang.nian_beast.Entity.raid.RaidEffectShow;
+import com.wenkrang.nian_beast.Entity.raid.RaidEvent;
 import com.wenkrang.nian_beast.Nian_beast;
 import com.wenkrang.nian_beast.lib.SpigotConsoleColors;
 import org.bukkit.*;
@@ -9,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.*;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
@@ -16,6 +18,7 @@ import sun.security.ec.point.ExtendedHomogeneousPoint;
 import sun.security.util.math.IntegerModuloP;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -117,10 +120,17 @@ public class nb implements CommandExecutor {
 
             if (strings[0].equalsIgnoreCase("test")) {
                 Player player = (Player) commandSender;
-                Nian_beast.RaidEffect.add(player.getPlayerProfile().getUniqueId().toString());
-                RaidEffectShow.showeffect(player);
+                try {
+                    RaidEffectShow.AddEffect(player);
+                } catch (IOException | InvalidConfigurationException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (strings[0].equalsIgnoreCase("test2")) {
+                Player player = (Player) commandSender;
+                player.sendMessage(Nian_beast.Keys.toString());
                 player.sendMessage(Nian_beast.RaidEffect.toString());
-
+                player.sendMessage(player.getScoreboardTags().toString());
             }
 
         }
