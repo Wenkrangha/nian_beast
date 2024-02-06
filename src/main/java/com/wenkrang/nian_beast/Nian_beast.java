@@ -40,6 +40,7 @@ public final class Nian_beast extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new safdasfs(), this); //没啥事别开
         getServer().getPluginManager().registerEvents(new EntityTarget(), this);
         getServer().getPluginManager().registerEvents(new RaidEffectShow(), this);
+        getServer().getPluginManager().registerEvents(new DamageEvent(), this);
     }
 
     @Override

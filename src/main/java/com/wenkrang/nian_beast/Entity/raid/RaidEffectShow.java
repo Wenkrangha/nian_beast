@@ -117,7 +117,7 @@ public class RaidEffectShow implements Listener {
                                             bossBar.setTitle(SpigotConsoleColors.DARK_YELLOW + SpigotConsoleColors.BOLD +
                                                     "年兽" + SpigotConsoleColors.RESET + SpigotConsoleColors.DARK_YELLOW + "袭击 - 即将来临");
                                             RemoveEffect(player);
-                                            player.sendMessage("FFFFF");
+
                                             RaidEvent.LoadRaid(bossBar, location, player);
 
                                         } else {

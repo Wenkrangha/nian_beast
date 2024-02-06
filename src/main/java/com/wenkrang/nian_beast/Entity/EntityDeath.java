@@ -113,18 +113,21 @@ public class EntityDeath implements Listener {
                         ItemStack itemStack = new ItemStack(Material.EMERALD, 1 + random.nextInt(2));
                         event.getEntity().getWorld().dropItem(event.getEntity().getLocation(), itemStack);
                     }
-                    //年兽袭击效果
-                    if (true) {
-                        if (event.getEntity().getKiller() != null) {
-                            if (!RaidEffect.contains(Objects.requireNonNull(event.getEntity().getKiller().getPlayerProfile().getUniqueId()).toString())) {
-                                try {
-                                    RaidEffectShow.AddEffect(event.getEntity().getKiller());
-                                } catch (IOException | InvalidConfigurationException e) {
-                                    throw new RuntimeException(e);
+                    if (!event.getEntity().getScoreboardTags().contains("NORaid")) {
+                        //年兽袭击效果
+                        if (true) {
+                            if (event.getEntity().getKiller() != null) {
+                                if (!RaidEffect.contains(Objects.requireNonNull(event.getEntity().getKiller().getPlayerProfile().getUniqueId()).toString())) {
+                                    try {
+                                        RaidEffectShow.AddEffect(event.getEntity().getKiller());
+                                    } catch (IOException | InvalidConfigurationException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             }
                         }
                     }
+
                 }
                 // 检查实体的得分板标签是否包含"nian_beasttwo"
                 if (event.getEntity().getScoreboardTags().contains("nian_beasttwo")) {
