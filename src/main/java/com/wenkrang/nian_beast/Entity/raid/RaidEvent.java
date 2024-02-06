@@ -678,8 +678,14 @@ public class RaidEvent {
      * @param player 玩家对象
      */
     public static void LoadRaid(BossBar bossBar, Location location, Player player) {
+        boolean b = false;
+        for (String string : Nian_beast.Keys) {
+            if (string.equalsIgnoreCase(String.valueOf(location.getBlockX()) + String.valueOf(location.getBlockY()) + String.valueOf(location.getBlockZ()))) {
+                b = true;
+            }
+        }
 
-        if (!Nian_beast.Keys.contains(String.valueOf(location.getBlockX()) + String.valueOf(location.getBlockY()) + String.valueOf(location.getBlockZ()))) {
+        if (!b) {
             Nian_beast.Keys.add(String.valueOf(location.getBlockX()) + String.valueOf(location.getBlockY()) + String.valueOf(location.getBlockZ()));
             new BukkitRunnable() {
                 @Override
@@ -744,7 +750,5 @@ public class RaidEvent {
             bossBar.removeAll();
             bossBar.setVisible(false);
         }
-
-
     }
 }

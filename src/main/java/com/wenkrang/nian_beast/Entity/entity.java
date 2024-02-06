@@ -51,7 +51,7 @@ public class entity {
                 // 获取年兽的"攻击伤害"属性实例
                 maxHealthAttribute = polarBear.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
                 // 在原有攻击伤害的基础上增加11点
-                modifier = new AttributeModifier("new DAMAGE", 11, AttributeModifier.Operation.ADD_NUMBER);
+                modifier = new AttributeModifier("new DAMAGE", 30, AttributeModifier.Operation.ADD_NUMBER);
                 maxHealthAttribute.addModifier(modifier);
 
                 // 速度I
@@ -78,7 +78,7 @@ public class entity {
         phantom.setHealth(50);
 
         maxHealthAttribute = phantom.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
-        modifier = new AttributeModifier("new DAMAGE", 11, AttributeModifier.Operation.ADD_NUMBER);
+        modifier = new AttributeModifier("new DAMAGE", 20, AttributeModifier.Operation.ADD_NUMBER);
         maxHealthAttribute.addModifier(modifier);
 
         // 速度II

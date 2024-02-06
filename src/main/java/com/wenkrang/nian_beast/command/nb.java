@@ -46,96 +46,103 @@ public class nb implements CommandExecutor {
         if (strings.length == 0) {
             gethelp(commandSender);
         } else {
-            if (strings[0].equalsIgnoreCase("help")) {
-                gethelp(commandSender);
-            }
-            if (strings[0].equalsIgnoreCase("spawnLO")) {
-                if (commandSender.isOp()) {
-                    if (commandSender instanceof Player) {
-                        Player player = (Player) commandSender;
-                        entity.getEntityone(player.getLocation());
-                        commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "普通年兽已生成");
-                    } else {
-                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
-                    }
-                } else {
-                    commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
+            if (commandSender.isOp()) {
+                if (strings[0].equalsIgnoreCase("help")) {
+                    gethelp(commandSender);
                 }
-
-            }
-            if (strings[0].equalsIgnoreCase("spawnLT")) {
-                if (commandSender.isOp()) {
-                    if (commandSender instanceof Player) {
-                        Player player = (Player) commandSender;
-                        entity.getEntitytwo(findAirBlock(player.getEyeLocation()));
-                        commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "飞行年兽已生成");
+                if (strings[0].equalsIgnoreCase("spawnLO")) {
+                    if (commandSender.isOp()) {
+                        if (commandSender instanceof Player) {
+                            Player player = (Player) commandSender;
+                            entity.getEntityone(player.getLocation());
+                            commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "普通年兽已生成");
+                        } else {
+                            commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        }
                     } else {
-                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
                     }
-                } else {
-                    commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
-                }
 
-            }
-            if (strings[0].equalsIgnoreCase("spawnLThree")) {
-                if (commandSender.isOp()) {
-                    if (commandSender instanceof Player) {
-                        Player player = (Player) commandSender;
-                        entity.getEntitythree(player.getLocation());
-                        commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "年兽王已生成");
+                }
+                if (strings[0].equalsIgnoreCase("spawnLT")) {
+                    if (commandSender.isOp()) {
+                        if (commandSender instanceof Player) {
+                            Player player = (Player) commandSender;
+                            entity.getEntitytwo(findAirBlock(player.getEyeLocation()));
+                            commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "飞行年兽已生成");
+                        } else {
+                            commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        }
                     } else {
-                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
                     }
-                } else {
-                    commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
-                }
 
-            }
-            if (strings[0].equalsIgnoreCase("testwo")) {
-                if (commandSender.isOp()) {
-                    if (commandSender instanceof Player) {
-                        Player player = (Player) commandSender;
-                        if (player.getPlayer().getWorld().getName().equalsIgnoreCase("world_the_end")) {
-                            // 如果玩家眼睛所处的方块高度小于320
-                            if (player.getPlayer().getEyeLocation().getBlockY() < 320) {
-                                Random random = new Random();
-                                // 随机数小于30时
-                                if (random.nextInt(100) < 30) {
-                                    // 在玩家眼睛所处的方块周围寻找空气方块
-                                    for (int i = 0; i < 3; i++) {
-                                        entity.getEntitytwo(findAirBlock(player.getPlayer().getEyeLocation()));
+                }
+                if (strings[0].equalsIgnoreCase("spawnLThree")) {
+                    if (commandSender.isOp()) {
+                        if (commandSender instanceof Player) {
+                            Player player = (Player) commandSender;
+                            entity.getEntitythree(player.getLocation());
+                            commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "年兽王已生成");
+                        } else {
+                            commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        }
+                    } else {
+                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
+                    }
+
+                }
+                if (strings[0].equalsIgnoreCase("testwo")) {
+                    if (commandSender.isOp()) {
+                        if (commandSender instanceof Player) {
+                            Player player = (Player) commandSender;
+                            if (player.getPlayer().getWorld().getName().equalsIgnoreCase("world_the_end")) {
+                                // 如果玩家眼睛所处的方块高度小于320
+                                if (player.getPlayer().getEyeLocation().getBlockY() < 320) {
+                                    Random random = new Random();
+                                    // 随机数小于30时
+                                    if (random.nextInt(100) < 30) {
+                                        // 在玩家眼睛所处的方块周围寻找空气方块
+                                        for (int i = 0; i < 3; i++) {
+                                            entity.getEntitytwo(findAirBlock(player.getPlayer().getEyeLocation()));
+                                        }
                                     }
                                 }
                             }
+                            commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "飞行年兽测试");
+                        } else {
+                            commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
                         }
-                        commandSender.sendMessage(SpigotConsoleColors.BLUE + "[-] " + SpigotConsoleColors.RESET + "飞行年兽测试");
                     } else {
-                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "你必须在游戏内才可以使用此命令");
+                        commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
                     }
-                } else {
-                    commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
+
                 }
+
+                if (strings[0].equalsIgnoreCase("test")) {
+                    Player player = (Player) commandSender;
+                    try {
+                        RaidEffectShow.AddEffect(player);
+                    } catch (IOException | InvalidConfigurationException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                if (strings[0].equalsIgnoreCase("test2")) {
+                    Player player = (Player) commandSender;
+                    player.sendMessage(Nian_beast.Keys.toString());
+                    player.sendMessage(Nian_beast.RaidEffect.toString());
+                    player.sendMessage(player.getScoreboardTags().toString());
+                }
+
+
+            } else {
+
+                commandSender.sendMessage(SpigotConsoleColors.DARK_RED + "[-] " + SpigotConsoleColors.RESET + "阿巴阿巴");
 
             }
 
-            if (strings[0].equalsIgnoreCase("test")) {
-                Player player = (Player) commandSender;
-                try {
-                    RaidEffectShow.AddEffect(player);
-                } catch (IOException | InvalidConfigurationException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (strings[0].equalsIgnoreCase("test2")) {
-                Player player = (Player) commandSender;
-                player.sendMessage(Nian_beast.Keys.toString());
-                player.sendMessage(Nian_beast.RaidEffect.toString());
-                player.sendMessage(player.getScoreboardTags().toString());
-            }
 
         }
-
-
         return true;
     }
 
